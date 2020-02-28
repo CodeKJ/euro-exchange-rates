@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/*
+ * In case you want to execute currency exchange RSS from API
+ * http://localhost/api/fetch
+ */
+Route::get('fetch', function(){
+    Artisan::call('fetch:exchange-rates');
 });
