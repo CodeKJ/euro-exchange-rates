@@ -1,14 +1,23 @@
 
-## Currency Exchange Rates
+## Euro Exchange Rates
 
-This app reads currency exchange rates from central bank of Latvia (www.bank.lv)
+This app fetches euro currency exchange rates from RSS feed provided by [Central Bank of Latvia](https://www.bank.lv/)
+
+### Demo
+
+- https://euroexchange.codekj.eu
 
 ### Features
 
-- Automatically updates currency exchange rate information
-- Provides historical data
+- Automatically updates currency exchange rates (daily)
+- Historical data for individual currency
+- Display increase or decrease of exchange rate based on previous record
 
-#### How to launch in Docker?
+### Usage
+
+- Manual fetch `php artisan fetch:exchange-rates` or http://localhost/api/fetch
+
+### How to launch in Docker?
 
 1. Clone this repo.
 2. Copy `.env.example` as `.env` (change db configs if needed, but everything should be working by default)
