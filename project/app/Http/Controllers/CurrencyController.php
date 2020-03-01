@@ -16,9 +16,11 @@ class CurrencyController extends Controller
     public function index(){
         $currencies = Currency::where('created_at', Carbon::now()->format('Y-m-d'))->paginate(16);
 
-        // if currencies are not found for today, we get yesterday values. RSS feed provides data from at least 1 day ago
-        if(!$currencies->count())
-            $currencies = Currency::where('created_at', Carbon::now()->subDay()->format('Y-m-d'))->paginate(16);
+        // if currencies are not found for today, we get previous values.
+        if(!$currencies->count()) {
+            $last_created_at = DB::table('exchange_rates')->orderBy('created_at', 'desc')->first()->created_at;
+            $currencies = Currency::where('created_at', $last_created_at)->paginate(16);
+        }
 
         return view('index', ['currencies' => $currencies, 'currency_date' => $currencies->first()->created_at->format('d.m.Y')]);
     }
